@@ -123,6 +123,8 @@ public class UpstreamNetworkMonitor {
     private Network mDefaultInternetNetwork;
     // The current upstream network used for tethering.
     private Network mTetheringUpstreamNetwork;
+    // Set if the Internet is considered reachable via a VPN network
+    private Network mVpnInternetNetwork;
 
     // Set if the Internet is considered reachable via a VPN network
     private Network mVpnInternetNetwork;
@@ -312,11 +314,9 @@ public class UpstreamNetworkMonitor {
         // Use VPN upstreams if hotspot settings allow.
         if (mVpnInternetNetwork != null &&
                 Settings.Secure.getInt(mContext.getContentResolver(),
-                       "tethering_allow_vpn_upstreams",
-                       0) == 1) {
+                       Settings.Secure.TETHERING_ALLOW_VPN_UPSTREAMS, 0) == 1) {
             return mNetworkMap.get(mVpnInternetNetwork);
         }
-
         final UpstreamNetworkState dfltState = (mDefaultInternetNetwork != null)
                 ? mNetworkMap.get(mDefaultInternetNetwork)
                 : null;
