@@ -126,9 +126,6 @@ public class UpstreamNetworkMonitor {
     // Set if the Internet is considered reachable via a VPN network
     private Network mVpnInternetNetwork;
 
-    // Set if the Internet is considered reachable via a VPN network
-    private Network mVpnInternetNetwork;
-
     public UpstreamNetworkMonitor(Context ctx, StateMachine tgt, SharedLog log, int what) {
         mContext = ctx;
         mTarget = tgt;

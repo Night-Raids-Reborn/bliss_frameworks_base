@@ -76,7 +76,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.ContentObserver;
 import android.content.pm.PackageManager;
-import android.database.ContentObserver;
 import android.hardware.usb.UsbManager;
 import android.net.ConnectivityManager;
 import android.net.EthernetManager;
@@ -402,19 +401,8 @@ public class Tethering {
             }
         };
         mContext.getContentResolver().registerContentObserver(Settings.Secure.getUriFor(
-                "tethering_allow_vpn_upstreams"), false, vpnSettingObserver);
-        startTrackDefaultNetwork();
-
-        // Listen for allowing tethering upstream via VPN settings changes
-        final ContentObserver vpnSettingObserver = new ContentObserver(mHandler) {
-            @Override
-            public void onChange(boolean self) {
-                // Reconsider tethering upstream
-                mTetherMasterSM.sendMessage(TetherMasterSM.CMD_UPSTREAM_CHANGED);
-            }
-        };
-        mContext.getContentResolver().registerContentObserver(Settings.Secure.getUriFor(
                 Settings.Secure.TETHERING_ALLOW_VPN_UPSTREAMS), false, vpnSettingObserver);
+        startTrackDefaultNetwork();
     }
 
     private class TetheringThreadExecutor implements Executor {
